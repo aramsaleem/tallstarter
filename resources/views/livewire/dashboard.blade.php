@@ -36,7 +36,7 @@ const startButton = document.getElementById('startButton');
 let peer; // PeerJS object
 let currentPeerConnection = null;
 let localStream = null;
-const peerList = ['user1', 'user2', 'user3', 'user4', 'user5']; // Predefined peer IDs
+const peerList = ['user1', 'user2']; // Predefined peer IDs
 
 // Start button to initialize PeerJS with the selected user ID
 startButton.addEventListener('click', () => {
