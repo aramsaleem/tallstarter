@@ -163,6 +163,7 @@
 
 
 
+@livewireScripts
 @fluxScripts
 </body>
 </html>
