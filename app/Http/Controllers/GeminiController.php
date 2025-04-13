@@ -10,9 +10,7 @@ class GeminiController extends Controller
     public function generateContent($prompt)
     {
         $apiKey = env('GEMINI_API_KEY');
-
-        // Updated endpoint URL format
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={$apiKey}";
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}";
 
         try {
             $response = Http::withHeaders([
@@ -27,19 +25,17 @@ class GeminiController extends Controller
                 ]
             ]);
 
-            if ($response->failed()) {
-                return response()->json([
-                    'error' => 'API request failed',
-                    'details' => $response->json()
-                ], $response->status());
-            }
-
-            return response()->json($response->json());
+            // Return the raw response (don't double-encode)
+            return response()->json($response->json(), $response->status(), [], JSON_PRETTY_PRINT);
 
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Failed to process request',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'debug' => [
+                    'url' => $url,
+                    'prompt' => urldecode($prompt)
+                ]
             ], 500);
         }
     }
