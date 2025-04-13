@@ -9,7 +9,7 @@ class GeminiController extends Controller
 {
     public function generateContent($prompt)
     {
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = "AIzaSyBP6t2ALKUw_UCY93pyW0IrRGtCmQkvfhA";
         $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}";
 
         try {
