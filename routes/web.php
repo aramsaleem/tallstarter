@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GeminiController;
 
 Route::get('/', \App\Livewire\Home::class)->name('home');
 
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/{prompt}', [GeminiController::class, 'generateContent']);
 Route::middleware(['auth'])->group(function (): void {
 
     // Impersonations
