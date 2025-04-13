@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0280a36b677e8ff7e95caa8133b7a9a",
+    "content-hash": "e40105e9873e10df469dab8394b35459",
     "packages": [
         {
             "name": "brick/math",
@@ -914,10 +914,6 @@
                 "rest",
                 "web service"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.9.2"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
