@@ -8,35 +8,43 @@ use Illuminate\Support\Facades\Http;
 class GeminiController extends Controller
 {
     public function generateContent($prompt)
-    {
-        $apiKey = "AIzaSyBP6t2ALKUw_UCY93pyW0IrRGtCmQkvfhA";
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}";
+{
+    $apiKey = "AIzaSyBP6t2ALKUw_UCY93pyW0IrRGtCmQkvfhA";
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}";
 
-        try {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-            ])->post($url, [
-                'contents' => [
-                    [
-                        'parts' => [
-                            ['text' => urldecode($prompt)]
-                        ]
+    try {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post($url, [
+            'contents' => [
+                [
+                    'parts' => [
+                        ['text' => urldecode($prompt)]
                     ]
                 ]
-            ]);
+            ]
+        ]);
 
-            // Return the raw response (don't double-encode)
-            return response()->json($response->json(), $response->status(), [], JSON_PRETTY_PRINT);
+        $responseData = $response->json();
 
-        } catch (\Exception $e) {
+        // Extract just the text content
+        $text = $responseData['candidates'][0]['content']['parts'][0]['text'] ?? null;
+
+        if ($text === null) {
             return response()->json([
-                'error' => 'Failed to process request',
-                'message' => $e->getMessage(),
-                'debug' => [
-                    'url' => $url,
-                    'prompt' => urldecode($prompt)
-                ]
+                'error' => 'No text content found in response',
+                'full_response' => $responseData
             ], 500);
         }
+
+        // Return just the plain text (not JSON)
+        return response($text)->header('Content-Type', 'text/plain');
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Failed to process request',
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
 }
