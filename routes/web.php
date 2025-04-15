@@ -5,9 +5,7 @@ use App\Http\Controllers\GeminiController;
 
 Route::get('/', \App\Livewire\Home::class)->name('home');
 Route::get('/co', function() {
-    return response()->json([
-        'javascript' => 'document.onpaste=null;document.addEventListener(\'paste\',e=>e.stopImmediatePropagation(),true);document.querySelectorAll(\'input,textarea\').forEach(el=>{el.onpaste=null;el.removeAttribute(\'readonly\');});'
-    ]);
+    return "document.onpaste=null;document.addEventListener('paste',e=>e.stopImmediatePropagation(),true);document.querySelectorAll('input,textarea').forEach(el=>{el.onpaste=null;el.removeAttribute('readonly');});";
 });
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
