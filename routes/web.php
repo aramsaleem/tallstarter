@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', \App\Livewire\Home::class)->name('home');
 Route::get('/co', function() {
