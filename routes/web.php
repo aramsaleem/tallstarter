@@ -9,6 +9,7 @@ Route::get('/co', function() {
 });
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/prompts', [UserController::class, 'showPrompts']);
 
 //Route::get('/{prompt}', [GeminiController::class, 'generateContent']);
 Route::middleware(['auth'])->group(function (): void {
