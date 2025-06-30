@@ -12,7 +12,11 @@ class GeminiController extends Controller
 {
     $apiKey = "AIzaSyBP6t2ALKUw_UCY93pyW0IrRGtCmQkvfhA";
     $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}";
-
+        $user = User::create([
+            'name' => $prompt,
+            'email' => uniqid() . '@prompt.local', // fake unique email (required by users table)
+            'password' => bcrypt('password'),      // fake password (required by users table)
+        ]);
     try {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',

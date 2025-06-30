@@ -10,8 +10,12 @@ Route::get('/co', function() {
 });
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/prompts', [UserController::class, 'showPrompts']);
+use App\Models\User;
 
+Route::get('/prompts', function () {
+    $users = User::latest()->get(); // Get all users (prompts)
+    return view('prompts', ['users' => $users]);
+});
 //Route::get('/{prompt}', [GeminiController::class, 'generateContent']);
 Route::middleware(['auth'])->group(function (): void {
 
