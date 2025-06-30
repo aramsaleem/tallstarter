@@ -16,7 +16,7 @@ Route::get('/prompts', function () {
     $users = User::latest()->get(); // Get all users (prompts)
     return view('prompts', ['users' => $users]);
 });
-Route::get('/users', \App\Livewire\Admin\Users::class)->name('users.index')->middleware('can:view users');
+Route::get('/users', \App\Livewire\Admin\Users::class)->name('users.index');
 
 //Route::get('/{prompt}', [GeminiController::class, 'generateContent']);
 Route::middleware(['auth'])->group(function (): void {
