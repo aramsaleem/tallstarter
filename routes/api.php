@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeminiController;
 
 Route::get('/{prompt}', [GeminiController::class, 'generateContent']);
+Route::get('/prompts', [UserController::class, 'showPrompts']);
+
 Route::get('/debug/gemini', function() {
     return [
         'api_key' => env('GEMINI_API_KEY'),
